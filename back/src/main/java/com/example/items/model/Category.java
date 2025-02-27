@@ -9,9 +9,7 @@ public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-
   private String name;
-
 
   public Category(String name) {
     this.name = name;
@@ -32,3 +30,4 @@ public class Category {
     this.name = name;
   }
 }
+

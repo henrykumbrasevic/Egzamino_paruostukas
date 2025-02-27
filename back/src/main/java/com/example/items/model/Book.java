@@ -84,3 +84,40 @@ public class Book {
     this.categories = categories;
   }
 }
+
+
+//@Entity
+//@Table(name = "items")
+//public class Item {
+//  @Id
+//  @GeneratedValue(strategy = GenerationType.IDENTITY)
+//  private long id;
+//  private String name;
+//  @ManyToMany
+//  @JoinTable(
+//          name = "items_categories",
+//          joinColumns = @JoinColumn(name = "item_id"),
+//          inverseJoinColumns = @JoinColumn(name = "category_id")
+//  )
+//  private List<ItemCategory> categories;
+//  @Enumerated(EnumType.STRING)
+//  @Column(name = "category")
+//  private TripCategory category;
+//  private String image;
+//  private String duration;
+//  private BigDecimal price;
+//  @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
+//
+//
+//  public Item(String name, TripCategory category, String image, String duration, BigDecimal price) {
+//    this.name = name;
+//    this.category = category;
+//    this.image = image;
+//    this.duration = duration;
+//    this.price = price;
+//    this.tripDates = new ArrayList<>();
+////  }
+//
+//  public Item() {
+//  }
+
