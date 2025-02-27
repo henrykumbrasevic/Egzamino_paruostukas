@@ -6,11 +6,12 @@ function ItemsPage() {
 
   return (
     <>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full">
         {!error && items.map((item) => <Card item={item} key={item.id} />)}
-        {error && <div>error</div>}
-        {loading && <div>loading ...</div>}
+        {error && <div className="pt-5 text-[2rem] text-center">error</div>}
+        {loading && (
+          <div className="pt-5 text-[2rem] text-center">loading ...</div>
+        )}
       </div>
     </>
   );

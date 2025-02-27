@@ -13,7 +13,7 @@ function ItemRegistrationPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchItemDetails = async () => {
+    const getItems = async () => {
       try {
         const response = await axios.get(`${URL}/api/items/${id}`, {
           auth: {
@@ -30,7 +30,7 @@ function ItemRegistrationPage() {
       }
     };
 
-    fetchItemDetails();
+    getItems();
   }, [id]);
 
   if (loading) return <p>Loading trip details...</p>;

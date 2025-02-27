@@ -1,24 +1,30 @@
 import Button from "./Button";
-import { Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
-import { firstLetterCapitalizer } from "../helpers/firstLetterCapitalizer";
-import { deleteItemById } from "../helpers/delete"
+import { deleteItem } from "../helpers/delete";
 
 function Card({ item }) {
-
-
   const { user } = useAuth();
 
+  // const deleteItem = () => {
+  //   try {
+  //     deleteItem(item.id);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const deleteItemHandler = () => {
-    try {
-      deleteItemById(entry.id);
-    } catch (error) {
-      console.log(error);
+  const deleteItem = () => {
+    const deleteConfirmation = window.confirm("delete?");
+
+    if (deleteConfirmation) {
+      try {
+        deleteItem(item.id);
+        console.log("deleted");
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
-
-
 
   return (
     <>
@@ -53,8 +59,10 @@ function Card({ item }) {
         {user
           ? user.roles?.includes("ROLE_ADMIN") && (
               <div className="flex">
-                  <Button buttonType={"registration"}>Edit</Button>
-                  <Button buttonType={"registration"} onClick={deleteItemHandler}>Delete</Button>
+                <Button buttonType={"registration"}>Edit</Button>
+                <Button buttonType={"registration"} onClick={deleteItemHandler}>
+                  Delete
+                </Button>
               </div>
             )
           : ""}
