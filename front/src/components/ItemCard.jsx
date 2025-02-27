@@ -31,9 +31,10 @@ function Card({ item }) {
           alt="destination picture"
           className="w-100 h-50 rounded object-cover m-2 shadow-sm"
         />
-        <p className="font-bold">Destination: {item.name}</p>
-        <p>Price: {`€${item.price}`}</p>
-        <p className="italic">
+        <p className="font-bold">Book title: {item.title}</p>
+        <p className="font-bold">Book author: {item.author}</p>
+        {/* <p>Price: {`€${item.price}`}</p> */}
+        {/* <p className="italic">
           Category: {firstLetterCapitalizer(item.category)}
         </p>
         {item.rating === 0 ? (
@@ -48,7 +49,7 @@ function Card({ item }) {
           </Link>
         ) : (
           <p className="italic">Currently no dates</p>
-        )}
+        )} */}
         {user
           ? user.roles?.includes("ROLE_ADMIN") && (
               <div className="flex">
