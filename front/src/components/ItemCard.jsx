@@ -7,7 +7,6 @@ import ItemCreationForm from "../pages/ItemCreationFormPage";
 
 function Card({ item }) {
   const { user } = useAuth();
-  const [openEdit, setOpenEdit] = useState(false);
 
   const deleteItemHandler = () => {
     const deleteConfirmation = window.confirm("Are you sure you want to delete this ad?");
@@ -21,9 +20,6 @@ function Card({ item }) {
       }
     }
   };
-   const openEditForm = () => {
-            setOpenEdit(true);
-          };
 
   return (
     <>

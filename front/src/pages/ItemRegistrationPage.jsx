@@ -15,7 +15,7 @@ function ItemRegistrationPage() {
   useEffect(() => {
     const getItems = async () => {
       try {
-        const response = await axios.get(`${URL}/api/items/${id}`, {
+        const response = await axios.get(`${URL}/api/ads_platform/${id}`, {
           auth: {
             username: user.username,
             password: user.password,

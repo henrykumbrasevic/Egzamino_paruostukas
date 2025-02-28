@@ -61,8 +61,8 @@ public class AdController {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     Ad adFromDB = adService.findById(id);
-    adFromDB.setTitle(adRequestDTO.title().isEmpty() ? adFromDB.getTitle() : adRequestDTO.title());
-    adFromDB.setDescription(adRequestDTO.description().isEmpty() ? adFromDB.getDescription() : adRequestDTO.description());
+    adFromDB.setTitle(adRequestDTO.title());
+    adFromDB.setDescription(adRequestDTO.description());
     adFromDB.setCategories(adRequestDTO.category().isEmpty() ? adFromDB.getCategories() : categoryService.saveCategory(new Category(adRequestDTO.category())));
     adFromDB.setPrice(Objects.equals(adRequestDTO.price(), BigDecimal.ZERO) ? adFromDB.getPrice() : adRequestDTO.price());
     adFromDB.setCity(adRequestDTO.city().isEmpty() ? adFromDB.getCity() : adRequestDTO.city());
