@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router";
 import LoginPage from "./pages/LogInPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import ItemCreationForm from "./pages/ItemCreationFormPage.jsx";
-import ItemRegistrationForm from "./pages/ItemRegistration.jsx";
+// import ItemRegistrationForm from "./pages/ItemRegistration.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import NavLinks from "./components/NavLinks.jsx";
 import Footer from "./components/Footer.jsx";

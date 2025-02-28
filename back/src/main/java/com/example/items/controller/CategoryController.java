@@ -17,8 +17,6 @@ public class CategoryController {
 
   private final CategoryService categoryService;
 
-  // @Autowired nebūtina rašyti ant konstruktoriaus, KAI yra 1 konstruktorius
-  // Aš rekomenduoju visada rašyti
   @Autowired
   public CategoryController(CategoryService categoryService) {
     this.categoryService = categoryService;

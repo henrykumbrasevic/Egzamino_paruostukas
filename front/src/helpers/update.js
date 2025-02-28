@@ -13,6 +13,6 @@ export const putData = async (id, data) => {
 
 export const updateStatus = async (id, status) => {
     const payload = { status };
-    const response = await axios.patch(`${URL}/api/items/${id}/review`, payload);
+    const response = await axios.patch(`${URL}/api/ads_platform/${id}/review`, payload);
     return response.data;
   };

@@ -16,11 +16,11 @@ export function ItemProvider({ children }) {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get(`${URL}/api/items`);
+        const response = await axios.get(`${URL}/api/ads_platform`);
         
         setItems(response.data);
       } catch (err) {
-        setError("Failed to fetch items");
+        setError("fail");
       } finally {
         setLoading(false);
       }
@@ -40,7 +40,7 @@ export function ItemProvider({ children }) {
 export const useItemContext = () => {
   const context = React.useContext(ItemContext);
   if (!context) {
-    throw new Error("useItemContext must be used within an ItemProvider");
+    throw new Error("useContext must be used within ItemContext");
   }
   return context;
 };

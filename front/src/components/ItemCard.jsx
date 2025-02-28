@@ -13,12 +13,12 @@ function Card({ item }) {
   //   }
   // };
 
-  const deleteItem = () => {
+  const deleteItemHandler = () => {
     const deleteConfirmation = window.confirm("delete?");
 
     if (deleteConfirmation) {
       try {
-        deleteItem(item.id);
+        deleteItemHandler(item.id);
         console.log("deleted");
       } catch (error) {
         console.error(error);
@@ -32,13 +32,11 @@ function Card({ item }) {
         key={item.id}
         className="m-3 p-2 rounded flex flex-col justify-center items-center bg-[#DEB887] shadow-2xs "
       >
-        <img
-          src={item.image}
-          alt="destination picture"
-          className="w-100 h-50 rounded object-cover m-2 shadow-sm"
-        />
-        <p className="font-bold">Book title: {item.title}</p>
-        <p className="font-bold">Book author: {item.author}</p>
+        <p className="font-bold">title: {item.title}</p>
+        <p className="font-bold">description: {item.description}</p>
+        <p className="font-bold">city: {item.city}</p>
+        <p className="font-bold">price: {item.price}</p>
+        <p className="font-bold">category: {item.category}</p>
         {/* <p>Price: {`€${item.price}`}</p> */}
         {/* <p className="italic">
           Category: {firstLetterCapitalizer(item.category)}

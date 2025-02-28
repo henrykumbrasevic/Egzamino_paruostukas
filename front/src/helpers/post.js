@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL } from "../helpers/localhostURL"
 
 export const post = async (data) => {
-    const response = await axios.post(`${URL}/api/items`, data);
+    const response = await axios.post(`${URL}/api/ads_platform`, data);
     
     return response.data;
   };

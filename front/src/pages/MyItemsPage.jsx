@@ -40,7 +40,7 @@ function MyItemsPage() {
   if (error)
     return (
       <p className="pt-5 text-[1.5rem] text-center">
-        You need to be logged in order to see your booked trips.
+        You need to be logged in order to see your booked items.
       </p>
     );
   return (
