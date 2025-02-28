@@ -24,4 +24,8 @@ public class CategoryService {
   public void deleteAdById(long id) {
     categoryRepository.deleteById(id);
   }
+
+  public boolean existsCategoryById(long id) {
+    return categoryRepository.existsById(id);
+  }
 }

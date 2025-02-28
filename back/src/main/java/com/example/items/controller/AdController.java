@@ -9,6 +9,7 @@ import com.example.items.model.User;
 import com.example.items.service.AdService;
 import com.example.items.service.CategoryService;
 import jakarta.validation.Valid;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 
 @RestController
@@ -38,9 +41,8 @@ public class AdController {
   }
 
   @PostMapping
-  public ResponseEntity<?> createAd(@Valid @RequestBody AdRequestDTO adRequestDTO, Authentication authentication) {
+  public ResponseEntity<?> createAd(@Valid @RequestBody AdRequestDTO adRequestDTO) {
     Ad ad = new Ad();
-    User user = new User();
     ad.setTitle(adRequestDTO.title());
     ad.setDescription(adRequestDTO.description());
     ad.setCity(adRequestDTO.city());
@@ -51,6 +53,21 @@ public class AdController {
                     .path("/{id}").buildAndExpand(ad.getId())
                     .toUri())
             .body(AdMapper.toAdResponseDTO(ad));
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<?> updateAd(@PathVariable long id, @Valid @RequestBody AdRequestDTO adRequestDTO) {
+    if (!adService.existsById(id)) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+    Ad adFromDB = adService.findById(id);
+    adFromDB.setTitle(adRequestDTO.title().isEmpty() ? adFromDB.getTitle() : adRequestDTO.title());
+    adFromDB.setDescription(adRequestDTO.description().isEmpty() ? adFromDB.getDescription() : adRequestDTO.description());
+    adFromDB.setCategories(adRequestDTO.category().isEmpty() ? adFromDB.getCategories() : categoryService.saveCategory(new Category(adRequestDTO.category())));
+    adFromDB.setPrice(Objects.equals(adRequestDTO.price(), BigDecimal.ZERO) ? adFromDB.getPrice() : adRequestDTO.price());
+    adFromDB.setCity(adRequestDTO.city().isEmpty() ? adFromDB.getCity() : adRequestDTO.city());
+    adService.saveAd(adFromDB);
+    return ResponseEntity.status(HttpStatus.OK).body(AdMapper.toAdResponseDTO(adFromDB));
   }
 
   @DeleteMapping("/{id}")

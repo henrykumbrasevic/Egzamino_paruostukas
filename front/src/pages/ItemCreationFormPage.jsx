@@ -1,28 +1,21 @@
 import { useForm } from "react-hook-form";
 import { post } from "../helpers/post";
 import { useState, useEffect } from "react";
+import { putData } from "../helpers/update";
 import { useNavigate } from "react-router";
-import { useItemContext } from "../context/ItemContext";
-import { getAllData } from "../helpers/get"
 
 const ItemCreationForm = ({item}) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
 
-  const { items } = useItemContext();
-
-  const categories = [
-    ...new Set(items.map((item) => item.category).toSorted()),
-  ];
-
-
-
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
 
   const formSubmitHandler = async (data) => {
     if (!item) {
@@ -45,14 +38,16 @@ const ItemCreationForm = ({item}) => {
 
   useEffect(() => {
     if (item) {
-      const { name, category, description, price, city } = item;
-      setValue("name", name);
+      const { title, category, description, price, city } = item;
+      setValue("title", title);
       setValue("category", category);
       setValue("description", description);
       setValue("price", price);
       setValue("city", city);
     }
   }, [item]);
+
+
 
   return (
     <>

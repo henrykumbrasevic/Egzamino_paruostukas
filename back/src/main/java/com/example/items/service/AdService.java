@@ -42,6 +42,14 @@ public class AdService {
     adRepository.deleteById(id);
   }
 
+  public boolean existsById(long id) {
+    return adRepository.existsById(id);
+  }
+
+  public Ad findById(long id) {
+    return adRepository.findById(id).get();
+  }
+
 //  public List<Ad> findAllAdsByTitleContaining(String title) {
 //    return adRepository.findAllByTitleContaining(title);
 //  }

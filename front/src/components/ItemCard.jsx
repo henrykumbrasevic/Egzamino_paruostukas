@@ -1,9 +1,13 @@
 import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
 import { deleteItem } from "../helpers/delete";
+import { useState } from "react";
+import { Link } from "react-router";
+import ItemCreationForm from "../pages/ItemCreationFormPage";
 
 function Card({ item }) {
   const { user } = useAuth();
+  const [openEdit, setOpenEdit] = useState(false);
 
   const deleteItemHandler = () => {
     const deleteConfirmation = window.confirm("Are you sure you want to delete this ad?");
@@ -17,6 +21,9 @@ function Card({ item }) {
       }
     }
   };
+   const openEditForm = () => {
+            setOpenEdit(true);
+          };
 
   return (
     <>
@@ -32,7 +39,9 @@ function Card({ item }) {
         {user
           ? user.roles?.includes("ROLE_ADMIN") && (
               <div className="flex">
-                <Button buttonType={"registration"}>Edit</Button>
+                <Link to="/item-creation-form" element={<ItemCreationForm />} >
+                <Button buttonType={"registration"} >Edit</Button>
+                </Link>
                 <Button buttonType={"registration"} onClick={deleteItemHandler}>
                   Delete
                 </Button>

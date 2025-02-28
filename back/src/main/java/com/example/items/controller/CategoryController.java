@@ -20,7 +20,7 @@ public class CategoryController {
   }
 
   @PostMapping("/categories")
-  public ResponseEntity<?> addCategory(@RequestBody Category category) {
+  public ResponseEntity<?> addCategory(@RequestBody Category category, long id) {
 
     if (category.getName().isEmpty()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Name cannot be empty");
@@ -35,6 +35,8 @@ public class CategoryController {
                             .toUri())
             .body(savedCategory);
   }
+
+  @PutMapping("/categories/{id}")
 
 
   @DeleteMapping("/categories/{id}")
