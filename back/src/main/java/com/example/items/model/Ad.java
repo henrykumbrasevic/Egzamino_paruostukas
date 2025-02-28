@@ -18,20 +18,16 @@ public class Ad {
   private BigDecimal price;
   private String city;
 
-  @ManyToMany
-  @JoinTable(
-          name = "ads_categories",
-          joinColumns = @JoinColumn(name = "ad_id"),
-          inverseJoinColumns = @JoinColumn(name = "category_id"))
-  private List<Category> categories;
+  @ManyToOne(fetch = FetchType.EAGER)
+  private Category category;
 
   @Autowired
-  public Ad(String title, String description, BigDecimal price, String city, List<Category> categories) {
+  public Ad(String title, String description, BigDecimal price, String city, Category category) {
     this.title = title;
     this.description = description;
     this.price = price;
     this.city = city;
-    this.categories = List.of();
+    this.category = category;
   }
 
   public Ad() {
@@ -74,11 +70,11 @@ public class Ad {
     this.price = price;
   }
 
-  public List<Category> getCategories() {
-    return categories;
+  public Category getCategories() {
+    return this.category;
   }
 
-  public void setCategories(List<Category> categories) {
-    this.categories = categories;
+  public void setCategories(Category category) {
+    this.category = category;
   }
 }

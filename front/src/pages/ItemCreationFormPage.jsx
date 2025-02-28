@@ -5,10 +5,10 @@ import { useNavigate } from "react-router";
 import { useItemContext } from "../context/ItemContext";
 import { getAllData } from "../helpers/get"
 
-const ItemCreationForm = () => {
+const ItemCreationForm = ({item}) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  // const [categories, setCategories] = useState([]);
+
 
   const { items } = useItemContext();
 
@@ -16,22 +16,7 @@ const ItemCreationForm = () => {
     ...new Set(items.map((item) => item.category).toSorted()),
   ];
 
-  // const categories = [
-  //   ...new Set(items.map((item) => item.category).toSorted()),
-  // ];
 
-  // useEffect(() => {
-  //   const getCategories = async () => {
-  //     try {
-  //       const data = await getAllData("/ads_platform/categories");
-  //       setCategories(data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   getCategories();
-  // }, []);
 
   const {
     register,
@@ -40,14 +25,34 @@ const ItemCreationForm = () => {
   } = useForm();
 
   const formSubmitHandler = async (data) => {
-    try {
-      console.log(data);
-      await post(data);
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
+    if (!item) {
+      try {
+        console.log(data);
+        await post(data);
+        navigate("/");
+      } catch (error) {
+        setError(error.message);
+      }
+    } else {
+      try {
+        await putData(item.id, data);
+        navigate("/");
+      } catch (error) {
+        setError(error.message);
+      }
     }
   };
+
+  useEffect(() => {
+    if (item) {
+      const { name, category, description, price, city } = item;
+      setValue("name", name);
+      setValue("category", category);
+      setValue("description", description);
+      setValue("price", price);
+      setValue("city", city);
+    }
+  }, [item]);
 
   return (
     <>
@@ -55,16 +60,7 @@ const ItemCreationForm = () => {
         className="pt-5 place-items-center "
         onSubmit={handleSubmit(formSubmitHandler)}
       >
-        {/* <label>Category</label>
-      <select {...register("category", { required: "Category is required." })}>
-        <option value="">Select a category</option>
-        {categories.map((category) => (
-          <option key={category.id} value={category.name}>
-            {category.name}
-          </option>
-        ))}
-      </select>
-      <p className="text-red-500">{errors.category?.message}</p> */}
+    
         <label
           htmlFor="title"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -88,29 +84,6 @@ const ItemCreationForm = () => {
           })}
         />
         <p className="text-red-500">{errors.title?.message}</p>
-        {/* <label
-          htmlFor="first_name"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-        >
-          Category
-        </label>
-        <select
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-[50vw]"
-          id="category"
-          {...register("category", {
-            required: "Category is required.",
-          })}
-        >
-          <option label=" "></option>
-          {categories.map((category) => {
-            return (
-              <>
-                <option value={category}>{category}</option>
-              </>
-            );
-          })}
-        </select> */}
-        {/* <p className="text-red-500">{errors.category?.message}</p> */}
         <label
           htmlFor="description"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -175,11 +148,12 @@ const ItemCreationForm = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-w-[50vw]"
           type="text"
           placeholder="Vehicles.."
-          {...register("dates", {
+          {...register("category", {
             required: "Please enter the category",
           })}
         />
         <p>{errors.category?.message}</p>
+        
         <p className="text-xs text-red-500 pt-1">*all fields are mandatory</p>
         <button
           type="submit"

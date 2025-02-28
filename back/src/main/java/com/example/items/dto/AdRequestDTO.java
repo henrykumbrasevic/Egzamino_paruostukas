@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record AdRequestDTO(String title, String description, String city, BigDecimal price,
-                           List<Category> categories) {
+                           String category) {
 
 
 }

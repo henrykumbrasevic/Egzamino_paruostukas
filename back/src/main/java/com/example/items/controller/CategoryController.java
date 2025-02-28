@@ -37,7 +37,7 @@ public class CategoryController {
   }
 
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/categories/{id}")
   public ResponseEntity<Void> deleteCategory(@PathVariable long id) {
     if (!categoryService.existsAdById(id)) {
       return ResponseEntity.notFound().build();
