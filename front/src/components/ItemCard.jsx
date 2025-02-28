@@ -5,7 +5,7 @@ import { deleteItem } from "../helpers/delete";
 function Card({ item }) {
   const { user } = useAuth();
 
-  // const deleteItem = () => {
+  // const deleteItemHandler = () => {
   //   try {
   //     deleteItem(item.id);
   //   } catch (error) {
@@ -14,11 +14,11 @@ function Card({ item }) {
   // };
 
   const deleteItemHandler = () => {
-    const deleteConfirmation = window.confirm("delete?");
+    const deleteConfirmation = window.confirm("Are you sure you want to delete this ad?");
 
     if (deleteConfirmation) {
       try {
-        deleteItemHandler(item.id);
+        deleteItem(item.id);
         console.log("deleted");
       } catch (error) {
         console.error(error);

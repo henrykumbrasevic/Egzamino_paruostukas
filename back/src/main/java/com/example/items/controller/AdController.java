@@ -36,8 +36,9 @@ public class AdController {
     ad.setTitle(adRequestDTO.title());
     ad.setDescription(adRequestDTO.description());
     ad.setCity(adRequestDTO.city());
-    ad.setCategories(adRequestDTO.categories());
     ad.setPrice(adRequestDTO.price());
+    ad.setCategories(adRequestDTO.categories());
+    adService.saveAd(ad);
     return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
                     .path("/{id}").buildAndExpand(ad.getId())
                     .toUri())

@@ -16,4 +16,12 @@ public class CategoryService {
   public Category saveCategory(Category category) {
     return categoryRepository.save(category);
   }
+
+  public boolean existsAdById(long id) {
+    return categoryRepository.existsById(id);
+  }
+
+  public void deleteAdById(long id) {
+    categoryRepository.deleteById(id);
+  }
 }

@@ -2,12 +2,10 @@ import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { URL } from "../helpers/localhostURL";
 
-// Create context with default values
 export const ItemContext = createContext(
   undefined
 );
 
-// Create provider component
 export function ItemProvider({ children }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,7 +34,6 @@ export function ItemProvider({ children }) {
   );
 }
 
-// Custom hook to use context
 export const useItemContext = () => {
   const context = React.useContext(ItemContext);
   if (!context) {

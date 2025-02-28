@@ -3,13 +3,18 @@ import { post } from "../helpers/post";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useItemContext } from "../context/ItemContext";
+import { getAllData } from "../helpers/get"
 
 const ItemCreationForm = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  // const [categories, setCategories] = useState([]); // to double check if categories need to be mapped
+  // const [categories, setCategories] = useState([]);
 
   const { items } = useItemContext();
+
+  const categories = [
+    ...new Set(items.map((item) => item.category).toSorted()),
+  ];
 
   // const categories = [
   //   ...new Set(items.map((item) => item.category).toSorted()),
@@ -18,7 +23,7 @@ const ItemCreationForm = () => {
   // useEffect(() => {
   //   const getCategories = async () => {
   //     try {
-  //       const data = await get("/categories");
+  //       const data = await getAllData("/ads_platform/categories");
   //       setCategories(data);
   //     } catch (error) {
   //       console.error(error);
@@ -50,7 +55,7 @@ const ItemCreationForm = () => {
         className="pt-5 place-items-center "
         onSubmit={handleSubmit(formSubmitHandler)}
       >
-        {/* <label>Category</label> // if category mapping will be required
+        {/* <label>Category</label>
       <select {...register("category", { required: "Category is required." })}>
         <option value="">Select a category</option>
         {categories.map((category) => (
